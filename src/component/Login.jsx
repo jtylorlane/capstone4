@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Container } from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 import { auth } from "../firebase-config";
 import {
