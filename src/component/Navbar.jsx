@@ -1,9 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { auth } from "../firebase-config";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
-    const state = useSelector((state)=> state.handleCart)
+  const navigate = useNavigate();
+
+  const state = useSelector((state) => state.handleCart);
+  console.log("userFromNavbar", auth.currentUser);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
@@ -36,12 +41,45 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="buttons">
+              {auth.currentUser ? (
+                <NavLink
+                  onClick={async () => {
+                    await signOut(auth);
+                  }}
+                  className="btn btn-outline-dark"
+                >
+                  Logout
+                </NavLink>
+              ) : (
                 <NavLink to="/login" className="btn btn-outline-dark">
-                   <i className="fa fa-sign-in me-1"></i> Login</NavLink>
-                <NavLink to="/register" className="btn btn-outline-dark ms-2">
-                   <i className="fa fa-user-plus me-1"></i> Register</NavLink>
-                <NavLink to="/cart" className="btn btn-outline-dark ms-2">
-                   <i className="fa fa-shopping-cart me-1"></i> Cart ({state.length})</NavLink>
+                  Login
+                </NavLink>
+              )}
+              {/* {auth.currentUser ? (
+                <li
+                  className="nav-list-item"
+                  onClick={async () => {
+                    await signOut(auth);
+                  }}
+                >
+                  Logout
+                </li>
+              ) : (
+                <li
+                  className="nav-list-item"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Login
+                </li>
+              )} */}
+              <NavLink to="/register" className="btn btn-outline-dark ms-2">
+                Register
+              </NavLink>
+              <NavLink to="/cart" className="btn btn-outline-dark ms-2">
+                Cart ({state.length})
+              </NavLink>
             </div>
           </div>
         </div>

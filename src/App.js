@@ -6,25 +6,24 @@ import Products from "./component/Products";
 import Product from "./component/Product";
 import Cart from "./component/Cart";
 import React from "react";
-import { signup} from './firebase-config';
+// import { signup } from "./firebase-config";
+import Login from "./component/Login";
+import Register from "./component/Register";
 
 function App() {
   return (
-    
     <>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="/products" element={<Products/>} />
-        <Route exact path="/products/:id" element={<Product/>} />
-        <Route exact path="/cart" element={<Cart/>} />
-        
-
-        </Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   );
-
-  
 }
 
 export default App;
